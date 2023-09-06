@@ -1,4 +1,4 @@
-package com.klimjavadev.todolist.models;
+package com.klimjavadev.todolist.models.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

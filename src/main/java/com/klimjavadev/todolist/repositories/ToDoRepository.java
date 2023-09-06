@@ -1,6 +1,6 @@
 package com.klimjavadev.todolist.repositories;
 
-import com.klimjavadev.todolist.models.ToDo;
+import com.klimjavadev.todolist.models.entity.ToDo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

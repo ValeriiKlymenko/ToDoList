@@ -1,7 +1,7 @@
 package com.klimjavadev.todolist.services.impl;
 
 import com.klimjavadev.todolist.exceptions.NullEntityReferenceException;
-import com.klimjavadev.todolist.models.User;
+import com.klimjavadev.todolist.models.entity.User;
 import com.klimjavadev.todolist.repositories.UserRepository;
 import com.klimjavadev.todolist.services.UserService;
 import jakarta.persistence.EntityNotFoundException;

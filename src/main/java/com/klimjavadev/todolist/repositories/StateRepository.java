@@ -1,6 +1,6 @@
 package com.klimjavadev.todolist.repositories;
 
-import com.klimjavadev.todolist.models.State;
+import com.klimjavadev.todolist.models.entity.State;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

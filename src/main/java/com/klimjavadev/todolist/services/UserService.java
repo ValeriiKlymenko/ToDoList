@@ -1,6 +1,6 @@
 package com.klimjavadev.todolist.services;
 
-import com.klimjavadev.todolist.models.User;
+import com.klimjavadev.todolist.models.entity.User;
 
 import java.util.List;
 
