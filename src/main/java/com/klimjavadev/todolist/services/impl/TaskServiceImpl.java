@@ -2,7 +2,7 @@ package com.klimjavadev.todolist.services.impl;
 
 import com.klimjavadev.todolist.exceptions.NullEntityReferenceException;
 import jakarta.persistence.EntityNotFoundException;
-import com.klimjavadev.todolist.models.Task;
+import com.klimjavadev.todolist.models.entity.Task;
 import com.klimjavadev.todolist.repositories.TaskRepository;
 import com.klimjavadev.todolist.services.TaskService;
 import org.slf4j.Logger;

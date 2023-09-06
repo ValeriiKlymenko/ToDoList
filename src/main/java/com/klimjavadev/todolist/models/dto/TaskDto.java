@@ -1,4 +1,4 @@
-package com.klimjavadev.todolist.dto;
+package com.klimjavadev.todolist.models.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

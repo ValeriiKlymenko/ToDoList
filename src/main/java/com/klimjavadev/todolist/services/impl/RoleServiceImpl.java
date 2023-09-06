@@ -1,7 +1,7 @@
 package com.klimjavadev.todolist.services.impl;
 
 import com.klimjavadev.todolist.exceptions.NullEntityReferenceException;
-import com.klimjavadev.todolist.models.Role;
+import com.klimjavadev.todolist.models.entity.Role;
 import com.klimjavadev.todolist.repositories.RoleRepository;
 import com.klimjavadev.todolist.services.RoleService;
 import jakarta.persistence.EntityNotFoundException;

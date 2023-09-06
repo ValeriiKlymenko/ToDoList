@@ -1,9 +1,9 @@
-package com.klimjavadev.todolist.dto;
+package com.klimjavadev.todolist.models.dto;
 
-import com.klimjavadev.todolist.models.Priority;
-import com.klimjavadev.todolist.models.State;
-import com.klimjavadev.todolist.models.Task;
-import com.klimjavadev.todolist.models.ToDo;
+import com.klimjavadev.todolist.models.entity.Priority;
+import com.klimjavadev.todolist.models.entity.State;
+import com.klimjavadev.todolist.models.entity.Task;
+import com.klimjavadev.todolist.models.entity.ToDo;
 
 public class TaskTransformer {
     public static TaskDto convertToDto(Task task) {

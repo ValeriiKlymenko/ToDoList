@@ -1,8 +1,8 @@
-package com.klimjavadev.todolist.dto;
+package com.klimjavadev.todolist.models.dto;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.klimjavadev.todolist.models.User;
+import com.klimjavadev.todolist.models.entity.User;
 import lombok.Value;
 
 @Value
