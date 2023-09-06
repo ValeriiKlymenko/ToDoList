@@ -10,5 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("/api/users/{user-id}/todos")
 public class ToDoController {
-//    private Logger logger = LoggerFactory.getLogger(ToDoController.class);
+    private Logger logger = LoggerFactory.getLogger(ToDoController.class);
+
 }

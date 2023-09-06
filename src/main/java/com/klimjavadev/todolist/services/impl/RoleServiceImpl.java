@@ -5,9 +5,10 @@ import com.klimjavadev.todolist.models.entity.Role;
 import com.klimjavadev.todolist.repositories.RoleRepository;
 import com.klimjavadev.todolist.services.RoleService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
 

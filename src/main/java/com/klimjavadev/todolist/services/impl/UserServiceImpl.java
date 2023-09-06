@@ -5,9 +5,10 @@ import com.klimjavadev.todolist.models.entity.User;
 import com.klimjavadev.todolist.repositories.UserRepository;
 import com.klimjavadev.todolist.services.UserService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 

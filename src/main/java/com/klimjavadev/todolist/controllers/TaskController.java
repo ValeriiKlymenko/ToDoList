@@ -1,49 +1,113 @@
 package com.klimjavadev.todolist.controllers;
 
-import com.klimjavadev.todolist.models.dto.TaskResponse;
+import com.klimjavadev.todolist.models.dto.TaskDto;
+import com.klimjavadev.todolist.models.dto.TaskTransformer;
 import com.klimjavadev.todolist.models.entity.Task;
-import com.klimjavadev.todolist.models.entity.ToDo;
-import com.klimjavadev.todolist.models.entity.User;
-import com.klimjavadev.todolist.repositories.TaskRepository;
+import com.klimjavadev.todolist.services.StateService;
 import com.klimjavadev.todolist.services.TaskService;
-import com.klimjavadev.todolist.services.UserService;
+import com.klimjavadev.todolist.services.ToDoService;
+import jakarta.persistence.EntityNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/users/{user-id}/todos/{todo-id}/tasks")
+@RequestMapping("/api/todos/{todo-id}/tasks")
 public class TaskController {
-//    private Logger logger = LoggerFactory.getLogger(TaskController.class);
-//    UserService userService;
-//    TaskService taskService;
-//
-//    @Autowired
-//    public TaskController(UserService userService, TaskService taskService) {
-//        this.userService = userService;
-//        this.taskService = taskService;
-//    }
-//
-//    @GetMapping
-//    List<TaskResponse> getTasks(@PathVariable("user-id") Long userId, @PathVariable("todo-id") Long todoId){
-////тут можна обійтися тільки taskService
-////        Optional<User> user = Optional.ofNullable(userService.readById(userId));
-//
-//        if (!taskService.readById(todoId).equals(taskService.getByTodoId(todoId).contains(userId))){ //чи належить todo user
-//            //bed request
+    private Logger logger = LoggerFactory.getLogger(TaskController.class);
+    private final ToDoService toDoService;
+    private final TaskService taskService;
+    private final StateService stateService;
+
+    @Autowired
+    public TaskController(ToDoService toDoService, TaskService taskService, StateService stateService) {
+        this.toDoService = toDoService;
+        this.taskService = taskService;
+        this.stateService = stateService;
+    }
+
+    @GetMapping
+    public ResponseEntity<?> createTask(@PathVariable("todo-id") Long todoId,
+                                    @Valid @RequestBody TaskDto taskDto) {
+        try {
+            toDoService.readById(todoId);
+        } catch (IndexOutOfBoundsException exception) {
+            throw new EntityNotFoundException(String.format("ToDo with id %d not found, todoId"));
+        }
+        Task task = TaskTransformer.convertToEntity(
+                taskDto,
+                toDoService.readById(todoId),
+                stateService.readById(taskDto.getStateId())
+        );
+        taskService.create(task);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/{task-id}")
+    public ResponseEntity<TaskDto> readTask(@PathVariable("task-id") long taskId,
+                                           @PathVariable("todo-id") long todoId) {
+//        checkForExistenceTodoAndTask(taskId, todoId);
+        Task task = taskService.readById(taskId);
+        TaskDto taskDto = TaskTransformer.convertToDto(task);
+        return ResponseEntity.ok(taskDto);
+    }
+
+    @PutMapping("/{task-id}")
+    public ResponseEntity<?> update(@PathVariable("task-id") long taskId,
+                                    @PathVariable("todo-id") long todoId,
+                                    @Valid @RequestBody TaskDto taskDto) {
+//        checkForExistenceTodoAndTask(taskId, todoId);
+        Task task = TaskTransformer.convertToEntity(
+                taskDto,
+                toDoService.readById(todoId),
+                stateService.readById(taskDto.getStateId())
+        );
+        taskService.update(task);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{task-id}")
+    public ResponseEntity<?> deleteTask(@PathVariable("task-id") long taskId,
+                                    @PathVariable("todo-id") long todoId) {
+//        checkForExistenceTodoAndTask(taskId, todoId);
+        taskService.delete(taskId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TaskDto>> getAllTasks(@PathVariable("todo-id") long todoId) {
+        try {
+            toDoService.readById(todoId);//existsTaskById()
+        } catch (IndexOutOfBoundsException exception) {
+            throw new EntityNotFoundException(String.format("ToDo with id %d not found, todoId"));
+        }
+        List<Task> tasks = taskService.getByTodoId(todoId);
+        List<TaskDto> taskDtoList = tasks.stream()
+                .map(TaskTransformer::convertToDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(taskDtoList);
+    }
+
+    //Логіку потрібно перемістити в Service
+
+//    private void checkForExistenceTodoAndTask(@PathVariable("task-id") long taskId,
+//                                              @PathVariable("todo-id") long todoId) {
+//        try {
+//            toDoService.readById(todoId);
+//        } catch (IndexOutOfBoundsException exception) {
+//            throw new EntityNotFoundException(String.format("ToDo with id % not found", todoId));
+//            try {
+//                taskService.readById(taskId);
+//            } catch (IndexOutOfBoundsException e) {
+//                throw new EntityNotFoundException(String.format("Task with id % not found", taskId));
+//            }
 //        }
-//        List<Task> taskList = taskService.getByTodoId(todoId);
-//
-//        return taskList.stream()
-//                .map(TaskResponse::new)
-//                .collect(Collectors.toList());
 //    }
-//
-////    @PostMapping
-//    //тут потрібно використовувати todoService
 }
