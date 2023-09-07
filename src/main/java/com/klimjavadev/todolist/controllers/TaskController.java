@@ -37,6 +37,7 @@ public class TaskController {
     public ResponseEntity<?> createTask(@PathVariable("todo-id") Long todoId,
                                     @Valid @RequestBody TaskDto taskDto) {
         logger.info("Create task with todo-id = {}", todoId);
+        //Логіку перенести в Service
 //        try {
 //            toDoService.readById(todoId);
 //        } catch (IndexOutOfBoundsException exception) {
