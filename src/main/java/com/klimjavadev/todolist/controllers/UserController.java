@@ -19,23 +19,23 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private Logger logger = LoggerFactory.getLogger(UserController.class);
-    UserService userService;
-    ToDoService toDoService;
-
-    @Autowired
-    public UserController(UserService userService, ToDoService toDoService) {
-        this.userService = userService;
-        this.toDoService = toDoService;
-    }
+//    private Logger logger = LoggerFactory.getLogger(UserController.class);
+//    UserService userService;
+//    ToDoService toDoService;
 //
-//    //201
-    @PostMapping
-    public ResponseEntity createUser(@Valid @RequestBody User user) {
-        logger.info("Creating user with id = {}", user.getId());
-        userService.create(user);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
+//    @Autowired
+//    public UserController(UserService userService, ToDoService toDoService) {
+//        this.userService = userService;
+//        this.toDoService = toDoService;
+//    }
+////
+////    //201
+//    @PostMapping
+//    public ResponseEntity createUser(@Valid @RequestBody User user) {
+//        logger.info("Creating user with id = {}", user.getId());
+//        userService.create(user);
+//        return ResponseEntity.status(HttpStatus.CREATED).build();
+//    }
 //
 //    //ok
 //    @GetMapping("/{id}")

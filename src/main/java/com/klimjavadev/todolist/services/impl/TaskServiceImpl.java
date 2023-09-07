@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class TaskServiceImpl implements TaskService {
-    private static final Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
-
     private final TaskRepository taskRepository;
 
     public TaskServiceImpl(TaskRepository taskRepository) {
@@ -32,8 +30,6 @@ public class TaskServiceImpl implements TaskService {
     public Task readById(long id) {
 
         EntityNotFoundException exception = new EntityNotFoundException("Task with id " + id + " not found");
-        logger.error(exception.getMessage(), exception);
-
         return taskRepository.findById(id).orElseThrow(
                 () -> exception);
     }

@@ -33,14 +33,15 @@ public class TaskController {
         this.stateService = stateService;
     }
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<?> createTask(@PathVariable("todo-id") Long todoId,
                                     @Valid @RequestBody TaskDto taskDto) {
-        try {
-            toDoService.readById(todoId);
-        } catch (IndexOutOfBoundsException exception) {
-            throw new EntityNotFoundException(String.format("ToDo with id %d not found, todoId"));
-        }
+        logger.info("Create task with todo-id = {}", todoId);
+//        try {
+//            toDoService.readById(todoId);
+//        } catch (IndexOutOfBoundsException exception) {
+//            throw new EntityNotFoundException(String.format("ToDo with id %d not found, todoId"));
+//        }
         Task task = TaskTransformer.convertToEntity(
                 taskDto,
                 toDoService.readById(todoId),
@@ -53,6 +54,7 @@ public class TaskController {
     @GetMapping("/{task-id}")
     public ResponseEntity<TaskDto> readTask(@PathVariable("task-id") long taskId,
                                            @PathVariable("todo-id") long todoId) {
+        logger.info("Read task with id = {}", taskId);
 //        checkForExistenceTodoAndTask(taskId, todoId);
         Task task = taskService.readById(taskId);
         TaskDto taskDto = TaskTransformer.convertToDto(task);
@@ -60,9 +62,10 @@ public class TaskController {
     }
 
     @PutMapping("/{task-id}")
-    public ResponseEntity<?> update(@PathVariable("task-id") long taskId,
+    public ResponseEntity<?> updateTask(@PathVariable("task-id") long taskId,
                                     @PathVariable("todo-id") long todoId,
                                     @Valid @RequestBody TaskDto taskDto) {
+        logger.info("Update task with id = {}", taskId);
 //        checkForExistenceTodoAndTask(taskId, todoId);
         Task task = TaskTransformer.convertToEntity(
                 taskDto,
@@ -76,6 +79,7 @@ public class TaskController {
     @DeleteMapping("/{task-id}")
     public ResponseEntity<?> deleteTask(@PathVariable("task-id") long taskId,
                                     @PathVariable("todo-id") long todoId) {
+        logger.info("Delete task with id = {}", taskId);
 //        checkForExistenceTodoAndTask(taskId, todoId);
         taskService.delete(taskId);
         return ResponseEntity.noContent().build();
@@ -83,6 +87,7 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<List<TaskDto>> getAllTasks(@PathVariable("todo-id") long todoId) {
+        logger.info("Get all tasks with todo-id = {}", todoId);
         try {
             toDoService.readById(todoId);//existsTaskById()
         } catch (IndexOutOfBoundsException exception) {
