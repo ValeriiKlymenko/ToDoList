@@ -5,10 +5,11 @@ import com.klimjavadev.todolist.models.entity.State;
 import com.klimjavadev.todolist.repositories.StateRepository;
 import com.klimjavadev.todolist.services.StateService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class StateServiceImpl implements StateService {
     private final StateRepository stateRepository;
 

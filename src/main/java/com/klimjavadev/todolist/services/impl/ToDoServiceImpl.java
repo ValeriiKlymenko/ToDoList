@@ -7,9 +7,10 @@ import com.klimjavadev.todolist.repositories.ToDoRepository;
 import com.klimjavadev.todolist.services.ToDoService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ToDoServiceImpl implements ToDoService {
     private final ToDoRepository todoRepository;
 
